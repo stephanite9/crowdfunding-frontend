@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Base HTML Styles */
+
+:root {
+    --brand:  #38A3A5;
+    --action: #A9D8FF;
+    --highlight: #D1BF6F;
+    --white: #ffffff;
+    --base-light: #C2D1D6;
+    --base-dark: #212D31;
+    --black: #111111;
+
+    --padding-base:8px;
+    --padding-medium: calc(var(--padding-base)*2);
+    --padding-large: calc(var(--padding-base)*4);
+    --padding-xl: calc(var(--padding-base)*6);
+}
+
+#navbar {
+    display: flex;
+    font-family: "Courier Prime", monospace;
+    font-size: xx-large;
+    font-weight: bold;
+    justify-content: space-around;
+    align-items: center;
+    padding: var(--padding-medium);
+    background-color: var(--brand);
+}
+
+h3 {
+    font-family: "Courier Prime", monospace;
+}
+
+/* Hover state */
+nav a:hover {
+    background-color: #D1BF6F;
+}

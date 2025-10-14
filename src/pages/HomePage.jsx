@@ -16,7 +16,7 @@ function HomePage() {
         }
 
     return (
-        <div id="fundraiser-list">
+        <div id="fundraiser-list" >
             {fundraisers.map((fundraiserData, key) => {
                 return <FundraiserCard key={key} fundraiserData={fundraiserData} />;
             })}

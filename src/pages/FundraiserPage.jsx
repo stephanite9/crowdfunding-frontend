@@ -16,17 +16,32 @@ function FundraiserPage() {
         return (<p>{error.message}</p>)
     }
 
+    const formatDate = (iso) => {
+        if (!iso) return "";
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return "";
+        return d.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        }); // en-GB gives DD/MM/YYYY
+    };
+
     return (
         <div>
             <h2>{fundraiser.title}</h2>
-            <h3>Created at: {fundraiser.date_created}</h3>
-            <h3>{`Status: ${fundraiser.is_open}`}</h3>
+            <h3>{fundraiser.description}</h3>
+            <h3>Goal: ${Number(fundraiser.goal)}</h3>
+            <h3>Production location: {fundraiser.location}</h3>
+            <h3>Media type: {fundraiser.media}</h3>
+            <h3>Created on: {formatDate(fundraiser.date_created)}</h3>
+            <h3>Status: {fundraiser?.is_open ? "Open for pledges!" : "Funding closed"}</h3>
             <h3>Pledges:</h3>
             <ul>
                 {fundraiser.pledges.map((pledgeData, key) => {
                     return (
                         <li key={key}>
-                            {pledgeData.amount} from {pledgeData.supporter}
+                            ${pledgeData.amount} from {pledgeData.supporter}
                         </li>
                     );
                 })}

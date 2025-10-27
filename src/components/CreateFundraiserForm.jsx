@@ -46,11 +46,11 @@ function CreateFundraiserForm() {
             location: fundraiserform.location,
             media: fundraiserform.media,
             goal: Number(fundraiserform.goal),
-            imageUrl: fundraiserform.imageUrl || null
+            image: fundraiserform.imageUrl || "https://placehold.co/600x400",
+            is_open: true
         };
 
         setLoading(true);
-        console.log("auth token:", auth?.token);
         try {
             const created = await postCreateFundraiser(newfundraiserpayload, auth?.token);
             // navigate to created fundraiser page or home
@@ -72,6 +72,7 @@ function CreateFundraiserForm() {
                 id="title"
                 placeholder="Create fundraiser title"
                 onChange={handleChange}
+                required
             />
         </div>
         <div>
@@ -81,6 +82,7 @@ function CreateFundraiserForm() {
                 id="description" 
                 placeholder="Enter description of fundraiser"
                 onChange={handleChange}
+                required
             />
         </div>
         <div>
@@ -88,7 +90,9 @@ function CreateFundraiserForm() {
             <select 
                 id="location" 
                 onChange={handleChange}
+                required
             >
+                <option value="">--Please choose an option--</option>
                 <option value="australia">Australia</option>
                 <option value="newzealand">New Zealand</option>
                 <option value="canada">Canada</option>
@@ -100,7 +104,9 @@ function CreateFundraiserForm() {
             <select 
                 id="media" 
                 onChange={handleChange}
+                required
             >
+                <option value="">--Please choose an option--</option>
                 <option value="film">Film</option>
                 <option value="tv">Television</option>
             </select>
@@ -112,6 +118,7 @@ function CreateFundraiserForm() {
                 id="goal" 
                 placeholder="Enter fundraising goal amount"
                 onChange={handleChange}
+                required
             />
         </div>
         <div>

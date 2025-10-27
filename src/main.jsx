@@ -7,6 +7,8 @@ import HomePage from './pages/HomePage.jsx';
 import FundraiserPage from './pages/FundraiserPage.jsx';
 import CreateFundraiserPage from './pages/CreateFundraiserPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+import CreateUserPage from './pages/CreateUserPage.jsx';
+import UserPage from './pages/UserPage.jsx';
 
 import NavBar from './components/NavBar.jsx';
 import { AuthProvider } from './components/AuthProvider.jsx';
@@ -20,6 +22,8 @@ const router = createBrowserRouter([
       {path: "/login", element: <LoginPage />},
       {path: "/fundraisers/:id", element: <FundraiserPage />},
       {path: "/createfundraiser", element: <CreateFundraiserPage />},
+      {path: "/createuser", element: <CreateUserPage />},
+      {path: "/users/:id", element: <UserPage />},
     ],
   },
 ]);

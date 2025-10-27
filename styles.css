@@ -4,11 +4,11 @@
 /* Base HTML Styles */
 
 :root {
-    --brand:  #38A3A5;
-    --action: #A9D8FF;
+    --brand:  #fff1d8;
+    --action: #eeeee7;
     --highlight: #D1BF6F;
     --white: #ffffff;
-    --base-light: #C2D1D6;
+    --base-light: #f1f1ed;
     --base-dark: #212D31;
     --black: #111111;
 
@@ -21,12 +21,25 @@
 #navbar {
     display: flex;
     font-family: "Courier Prime", monospace;
-    font-size: xx-large;
+    font-size: x-large;
     font-weight: bold;
     justify-content: space-around;
     align-items: center;
     padding: var(--padding-medium);
     background-color: var(--brand);
+}
+
+h1 {
+    display: flex;
+    font-family: "Courier Prime", monospace;
+    font-size: xx-large;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+}
+
+h2 {
+    font-family: "Courier Prime", monospace;
 }
 
 h3 {
@@ -35,5 +48,5 @@ h3 {
 
 /* Hover state */
 nav a:hover {
-    background-color: #D1BF6F;
+    background-color: #58d41e;
 }

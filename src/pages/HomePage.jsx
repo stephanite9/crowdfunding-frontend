@@ -18,6 +18,7 @@ function HomePage() {
     return (
         <div>
             <h1>The Show Must Go On!</h1>
+            <h2>Bring Your Favourite Stories Back To Life</h2>
             <div id="fundraiser-list" >
                 {fundraisers.map((fundraiserData, key) => {
                     return <FundraiserCard key={key} fundraiserData={fundraiserData} />;

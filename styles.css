@@ -21,7 +21,7 @@
 #navbar {
     display: flex;
     font-family: "Courier Prime", monospace;
-    font-size: x-large;
+    font-size: large;
     font-weight: bold;
     justify-content: space-around;
     align-items: center;
@@ -39,7 +39,12 @@ h1 {
 }
 
 h2 {
+    display: flex;
     font-family: "Courier Prime", monospace;
+    font-size: x-large;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
 }
 
 h3 {

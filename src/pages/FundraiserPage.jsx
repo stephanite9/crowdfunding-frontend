@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import { Link, Outlet, useParams} from "react-router-dom";
 import useFundraiser from "../hooks/use-fundraiser";
 
 function FundraiserPage() {
@@ -31,6 +31,7 @@ function FundraiserPage() {
         <div>
             <h2>{fundraiser.title}</h2>
             <h3>{fundraiser.description}</h3>
+            <h3>Created by: {fundraiser.username}</h3>
             <h3>Goal: ${Number(fundraiser.goal)}</h3>
             <h3>Production location: {fundraiser.location}</h3>
             <h3>Media type: {fundraiser.media}</h3>
@@ -41,11 +42,15 @@ function FundraiserPage() {
                 {fundraiser.pledges.map((pledgeData, key) => {
                     return (
                         <li key={key}>
-                            ${pledgeData.amount} from {pledgeData.supporter}
+                            ${pledgeData.amount} from {pledgeData.username}
                         </li>
                     );
                 })}
             </ul>
+            <div>
+                <Link to="update">Update fundraiser</Link>
+                <Outlet />
+            </div>
         </div>
     );
 }

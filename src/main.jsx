@@ -9,6 +9,7 @@ import CreateFundraiserPage from './pages/CreateFundraiserPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import CreateUserPage from './pages/CreateUserPage.jsx';
 import UserPage from './pages/UserPage.jsx';
+import UpdateFundraiserPage from './pages/UpdateFundraiserPage.jsx';
 
 import NavBar from './components/NavBar.jsx';
 import { AuthProvider } from './components/AuthProvider.jsx';
@@ -24,6 +25,9 @@ const router = createBrowserRouter([
       {path: "/createfundraiser", element: <CreateFundraiserPage />},
       {path: "/createuser", element: <CreateUserPage />},
       {path: "/users/:id", element: <UserPage />},
+      { path: "/fundraisers/:id", element: <FundraiserPage />, children: [
+        { path: "update", element: <UpdateFundraiserPage /> }
+      ]},
     ],
   },
 ]);

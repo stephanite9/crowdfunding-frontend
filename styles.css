@@ -29,6 +29,20 @@
     background-color: var(--brand);
 }
 
+.underline {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+body {
+    font-family: "Courier Prime", monospace;
+}
+
 h1 {
     display: flex;
     font-family: "Courier Prime", monospace;
@@ -55,3 +69,4 @@ h3 {
 nav a:hover {
     background-color: #58d41e;
 }
+

@@ -5,11 +5,13 @@ function FundraiserCard(props) {
     const { fundraiserData } = props;
     const fundraiserLink = `fundraisers/${fundraiserData.id}`;
 
+
     return (
     <div className="fundraiser-card">
         <Link to={fundraiserLink}>
         <img src={fundraiserData.image} />
-        <h3>{fundraiserData.title}</h3>
+        <h2>{fundraiserData.title}</h2>
+        <h3>Goal: ${fundraiserData.goal}</h3>
         </Link>
     </div>
     );

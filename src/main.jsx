@@ -25,12 +25,11 @@ const router = createBrowserRouter([
       {path: "/createfundraiser", element: <CreateFundraiserPage />},
       {path: "/createuser", element: <CreateUserPage />},
       {path: "/users/:id", element: <UserPage />},
-      { path: "/fundraisers/:id", element: <FundraiserPage />, children: [
-        { path: "update", element: <UpdateFundraiserPage /> }
+      {path: "/fundraisers/:id", element: <FundraiserPage />},
+      {path: "/fundraisers/:id/update", element: <UpdateFundraiserPage />}
       ]},
     ],
-  },
-]);
+);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

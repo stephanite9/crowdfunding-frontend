@@ -1,59 +1,55 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import putUpdateFundraiser from "../api/update-fundraiser.js";
 import { useAuth } from "../hooks/use-auth.js";
 
-function UpdateFundraiserForm() {
+function UpdateFundraiserForm({initialData = {}, onSubmit}) {
     const navigate = useNavigate();
-    const { id } = useParams();
+    // const { id } = useParams();
     const { auth } = useAuth();
 
-    const [newfundraiserform, setNewfundraiserform] = useState({
-        title: "",
-        description: "",
-        location: "",
-        media: "",
-        goal: "",
-        imageUrl: ""
-    });
+    const [updateFundraiserdata, setUpdatefundraiserdata] = useState(initialData || {});
+    const initializedRef = useRef(false);
 
     useEffect(() => {
-        if (!auth?.token) {
-            navigate("/login");
-        }
-    }, [auth, navigate]);
+    if (!initializedRef.current && initialData && Object.keys(initialData).length) {
+        setUpdatefundraiserdata(initialData);
+        initializedRef.current = true;
+    }
+}, [initialData]);
 
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const handleChange = (event) => {
         const { id, value } = event.target;
-        setNewfundraiserform(prev => ({ ...prev, [id]: value }));
+        setUpdatefundraiserdata(prevData => ({ ...prevData, [id]: value }));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (onSubmit) onSubmit(updateFundraiserdata);
         setError(null);
 
-        // basic validation
-        if (!newfundraiserform.title || !newfundraiserform.description || !newfundraiserform.goal) {
-            setError("Title, description and goal are required.");
-            return;
-        }
-
-        const newfundraiserpayload = {
-            title: newfundraiserform.title,
-            description: newfundraiserform.description,
-            location: newfundraiserform.location,
-            media: newfundraiserform.media,
-            goal: Number(newfundraiserform.goal),
-            image: newfundraiserform.imageUrl || "https://placehold.co/600x400",
-            is_open: true
-        };
+        // // basic validation
+        // if (!updateFundraiserdata.title || !updateFundraiserdata.description || !updateFundraiserdata.goal) {
+        //     setError("Title, description and goal are required.");
+        //     return;
+        // }
 
         setLoading(true);
         try {
-            const created = await putUpdateFundraiser(newfundraiserpayload, auth?.token);
+            // build payload from current state
+            const payload = {
+                title: updateFundraiserdata.title,
+                description: updateFundraiserdata.description,
+                location: updateFundraiserdata.location,
+                media: updateFundraiserdata.media,
+                goal: Number(updateFundraiserdata.goal),
+                image: updateFundraiserdata.imageUrl || updateFundraiserdata.image || "https://placehold.co/600x400",
+                is_open: updateFundraiserdata.is_open ?? true
+            };
+            const created = await putUpdateFundraiser(payload, auth?.token);
             // navigate to created fundraiser page or home
             navigate(`/fundraisers/${created.id}`);
         } catch (err) {
@@ -65,15 +61,14 @@ function UpdateFundraiserForm() {
     };
 
     return (
-    <form>
+    <form onSubmit={handleSubmit}>
         <div>
             <label htmlFor="title">Title:</label>
             <input 
                 type="text"
                 id="title"
-                placeholder="Create fundraiser title"
+                value={updateFundraiserdata.title ?? ""}
                 onChange={handleChange}
-                required
             />
         </div>
         <div>
@@ -81,17 +76,16 @@ function UpdateFundraiserForm() {
             <input 
                 type="text" 
                 id="description" 
-                placeholder="Enter description of fundraiser"
+                value={updateFundraiserdata.description ?? ''}
                 onChange={handleChange}
-                required
             />
         </div>
         <div>
             <label htmlFor="location">Location:</label>
             <select 
-                id="location" 
+                id="location"
+                value={updateFundraiserdata.location ?? ""} 
                 onChange={handleChange}
-                required
             >
                 <option value="">--Please choose an option--</option>
                 <option value="australia">Australia</option>
@@ -103,9 +97,9 @@ function UpdateFundraiserForm() {
         <div>
             <label htmlFor="media">Media type:</label>
             <select 
-                id="media" 
+                id="media"
+                value={updateFundraiserdata.media ?? ""}
                 onChange={handleChange}
-                required
             >
                 <option value="">--Please choose an option--</option>
                 <option value="film">Film</option>
@@ -117,16 +111,24 @@ function UpdateFundraiserForm() {
             <input 
                 type="number" 
                 id="goal" 
-                placeholder="Enter fundraising goal amount"
+                value={updateFundraiserdata.goal || ''}
                 onChange={handleChange}
-                required
             />
         </div>
         <div>
                 <label htmlFor="imageUrl">Image URL (optional)</label>
-                <input id="imageUrl" onChange={handleChange} />
+                <input
+                id="imageUrl"
+                value={updateFundraiserdata.imageUrl ?? updateFundraiserdata.image ?? ""}
+                onChange={handleChange}
+            />
         </div>
-        <button type="submit" onClick={handleSubmit}>Update Fundraiser</button>
+
+        {error && <div className="error">{error}</div>}
+
+        <button type="submit" disabled={loading}>
+            {loading ? "Updating..." : "Update Fundraiser"}
+        </button>
     </form>
     );
 }

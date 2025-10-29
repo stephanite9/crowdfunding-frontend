@@ -1,4 +1,5 @@
 import { Link, Outlet, useParams} from "react-router-dom";
+import CreatePledgeForm from "../components/CreatePledgeForm.jsx";
 import useFundraiser from "../hooks/use-fundraiser";
 
 function FundraiserPage() {
@@ -47,6 +48,12 @@ function FundraiserPage() {
                     );
                 })}
             </ul>
+
+            <CreatePledgeForm
+                fundraiserId={id}
+                onSuccess={() => window.location.reload()} // replace with a refetch if available
+            />
+
             <div>
                 <Link to="update">Update fundraiser</Link>
                 <Outlet />

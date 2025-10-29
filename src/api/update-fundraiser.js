@@ -1,5 +1,5 @@
-async function putUpdateFundraiser(payload, token) {
-    const url = `${import.meta.env.VITE_API_URL}/updatefundraiser`;
+async function putUpdateFundraiser(fundraiserId, payload, token) {
+    const url = `${import.meta.env.VITE_API_URL}/fundraisers/${fundraiserId}`;
     
     const headers = {
         "Content-Type": "application/json",

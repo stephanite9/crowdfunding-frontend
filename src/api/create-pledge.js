@@ -6,7 +6,8 @@
  * @returns {Promise<object>} created pledge JSON
  */
 async function postCreatePledge(fundraiserId, payload, token) {
-    const url = `${import.meta.env.VITE_API_URL}/fundraisers/${fundraiserId}/pledges/`;
+    const url = `${import.meta.env.VITE_API_URL}/pledges/`;
+    const {amount, comment, anonymous} = payload
 
     const headers = {
         "Content-Type": "application/json",
@@ -19,7 +20,12 @@ async function postCreatePledge(fundraiserId, payload, token) {
     const response = await fetch(url, {
         method: "POST",
         headers,
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+            "amount": amount,
+            "comment": comment,
+            "anonymous": anonymous,
+            "fundraiser": fundraiserId
+        }),
     });
 
     if (!response.ok) {

@@ -65,6 +65,14 @@ h3 {
     font-family: "Courier Prime", monospace;
 }
 
+.update-fundraiser-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: var(--padding-medium);
+}
+
 /* Hover state */
 nav a:hover {
     background-color: #58d41e;

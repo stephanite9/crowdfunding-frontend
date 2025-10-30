@@ -65,8 +65,10 @@ function FundraiserPage() {
                 onSuccess={() => window.location.reload()} // replace with a refetch if available
             />
 
-            <div>
-                <Link to="update">Update fundraiser</Link>
+            <div className="update-fundraiser-button">
+                <Link to="update">
+                    <button>Update fundraiser</button>
+                </Link>
                 <Outlet />
             </div>
         </div>

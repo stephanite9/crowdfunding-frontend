@@ -1,5 +1,4 @@
 /**
- * Create a pledge for an existing fundraiser.
  * @param {string|number} fundraiserId - ID of the fundraiser
  * @param {object} payload - { amount: number, comment?: string, anonymous?: boolean }
  * @param {string} [token] - auth token (will be sent as "Authorization: Token <token>")

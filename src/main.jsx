@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import CreateUserPage from './pages/CreateUserPage.jsx';
 import UserPage from './pages/UserPage.jsx';
 import UpdateFundraiserPage from './pages/UpdateFundraiserPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 import NavBar from './components/NavBar.jsx';
 import { AuthProvider } from './components/AuthProvider.jsx';
@@ -26,7 +27,8 @@ const router = createBrowserRouter([
       {path: "/createuser", element: <CreateUserPage />},
       {path: "/users/:id", element: <UserPage />},
       {path: "/fundraisers/:id", element: <FundraiserPage />},
-      {path: "/fundraisers/:id/update", element: <UpdateFundraiserPage />}
+      {path: "/fundraisers/:id/update", element: <UpdateFundraiserPage />},
+      {path: "*", element: <NotFoundPage />}
       ]},
     ],
 );

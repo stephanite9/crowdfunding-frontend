@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import postCreatePledge from "../api/create-pledge.js";
 import { useAuth } from "../hooks/use-auth.js";
+import "./PledgeForm.css"; 
 
 function CreatePledgeForm({ fundraiserId: propFundraiserId, onSuccess }) {
     const navigate = useNavigate();
@@ -63,7 +64,7 @@ function CreatePledgeForm({ fundraiserId: propFundraiserId, onSuccess }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="pledge-form">
         <div>
         <label htmlFor="amount">Amount</label>
         <input
@@ -83,6 +84,7 @@ function CreatePledgeForm({ fundraiserId: propFundraiserId, onSuccess }) {
             id="comment"
             value={form.comment}
             onChange={handleChange}
+            rows="1"
         />
         </div>
 
@@ -101,7 +103,7 @@ function CreatePledgeForm({ fundraiserId: propFundraiserId, onSuccess }) {
         {error && <div className="error" role="alert">{error}</div>}
 
         <button type="submit" disabled={loading}>
-            {loading ? "Submitting..." : "Make Pledge"}
+            {loading ? "Submitting..." : "Make pledge"}
         </button>
     </form>
     );

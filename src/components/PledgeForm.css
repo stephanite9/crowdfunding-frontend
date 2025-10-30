@@ -1,0 +1,39 @@
+.pledge-form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.pledge-form > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pledge-form input[type="number"],
+.pledge-form textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.pledge-form input[type="number"] {
+    width: 120px;
+}
+
+.pledge-form textarea {
+    width: 300px;
+    min-height: 40px;
+    resize: vertical;
+}
+
+.pledge-form label {
+    font-weight: 600;
+    margin: 0;
+}
+
+.pledge-form button {
+    padding: 0.5rem 1rem;
+    /* margin-left: auto; */
+}

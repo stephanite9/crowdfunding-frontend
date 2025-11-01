@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import postCreateUser from "../api/create-user.js";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import putUpdateUser from "../api/update-user.js";
 import { useAuth } from "../hooks/use-auth.js";
 
-function CreateUserForm() {
+function UpdateUserForm() {
     const navigate = useNavigate();
+    const { id } = useParams(); // get fundraiser id from URL
     const { auth } = useAuth();
 
     const [userform, setUserform] = useState({
@@ -42,26 +43,25 @@ function CreateUserForm() {
         };
 
         setLoading(true);
-        try {
-            const created = await postCreateUser(newuserpayload);
-            // navigate to created fundraiser page or home
-            navigate(`/users/${created.id}`);
-        } catch (err) {
-            console.error(err);
-            setError(err?.message || "Failed to create user");
-        } finally {
-            setLoading(false);
-        }
-    };
+                try {
+                    const updated = await putUpdateUser(id, newuserpayload, auth?.token);
+                    navigate(`/users/${updated.id}`);
+                } catch (err) {
+                    console.error(err);
+                    setError(err?.message || "Failed to update user");
+                } finally {
+                    setLoading(false);
+                }
+            };
 
     return (
-    <form>
+    <form onSubmit={handleSubmit}>
         <div>
             <label htmlFor="username">Username:</label>
             <input 
                 type="text"
                 id="username"
-                placeholder="Username"
+                value={userform.username}
                 onChange={handleChange}
                 required
             />
@@ -71,7 +71,7 @@ function CreateUserForm() {
             <input 
                 type="text" 
                 id="first_name" 
-                placeholder="First name"
+                value={userform.first_name}
                 onChange={handleChange}
                 required
             />
@@ -80,7 +80,7 @@ function CreateUserForm() {
             <label htmlFor="last_name">Last name:</label>
             <input 
                 id="last_name"
-                placeholder="Last name"
+                value={userform.last_name}
                 onChange={handleChange}
                 required
             />
@@ -89,7 +89,7 @@ function CreateUserForm() {
             <label htmlFor="email">Email:</label>
             <input 
                 id="email"
-                placeholder="Email"
+                value={userform.email}
                 onChange={handleChange}
                 required
             />
@@ -98,14 +98,18 @@ function CreateUserForm() {
             <label htmlFor="password">Password:</label>
             <input 
                 id="password"
-                placeholder="Password"
+                value={userform.password}
                 onChange={handleChange}
                 required
             />
         </div>
-        <button type="submit" onClick={handleSubmit}>Create New User</button>
-    </form>
+        {error && <div className="error" role="alert">{error}</div>}
+
+            <button type="submit" disabled={loading}>
+                {loading ? "Updating..." : "Update user"}
+            </button>
+        </form>
     );
 }
 
-export default CreateUserForm;
+export default UpdateUserForm;

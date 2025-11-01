@@ -1,12 +1,12 @@
-import {useParams} from "react-router-dom";
-import useFundraiser from "../hooks/use-fundraiser";
+import {Link, Outlet, useParams} from "react-router-dom";
+import useUser from "../hooks/use-user";
 
-function FundraiserPage() {
+function UserPage() {
     // Here we use a hook that comes for free in react router called `useParams` to get the id from the URL so that we can pass it to our useFundraiser hook.
     const { id } = useParams();
 
-    // useFundraiser returns three pieces of info, so we need to grab them all here
-    const { fundraiser, isLoading, error } = useFundraiser(id);
+    // useUser returns three pieces of info, so we need to grab them all here
+    const { user, isLoading, error } = useUser(id);
     
     if (isLoading) {
         return (<p>loading...</p>)
@@ -29,25 +29,17 @@ function FundraiserPage() {
 
     return (
         <div>
-            <h2>{fundraiser.title}</h2>
-            <h3>{fundraiser.description}</h3>
-            <h3>Goal: ${Number(fundraiser.goal)}</h3>
-            <h3>Production location: {fundraiser.location}</h3>
-            <h3>Media type: {fundraiser.media}</h3>
-            <h3>Created on: {formatDate(fundraiser.date_created)}</h3>
-            <h3>Status: {fundraiser?.is_open ? "Open for pledges!" : "Funding closed"}</h3>
-            <h3>Pledges:</h3>
-            <ul>
-                {fundraiser.pledges.map((pledgeData, key) => {
-                    return (
-                        <li key={key}>
-                            ${pledgeData.amount} from {pledgeData.supporter}
-                        </li>
-                    );
-                })}
-            </ul>
+            <h2>{user.username}</h2>
+            <h2>Date joined: {formatDate(user.date_joined)}</h2>
+        
+        <div className="update-user-button">
+                <Link to="update">
+                    <button>Update user</button>
+                </Link>
+                <Outlet />
+            </div>
         </div>
     );
 }
 
-export default FundraiserPage;
+export default UserPage;

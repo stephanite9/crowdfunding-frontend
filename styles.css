@@ -4,9 +4,9 @@
 /* Base HTML Styles */
 
 :root {
-    --brand:  #fff1d8;
+    --brand:  #eccf9c;
     --action: #eeeee7;
-    --highlight: #D1BF6F;
+    --highlight: #e6d9a2;
     --white: #ffffff;
     --base-light: #f1f1ed;
     --base-dark: #212D31;
@@ -27,6 +27,12 @@
     align-items: center;
     padding: var(--padding-medium);
     background-color: var(--brand);
+}
+
+.navbar-user {
+    color: var(--base-dark);
+    font-size: 0.9rem;
+    margin-right: 1rem;
 }
 
 .underline {

@@ -13,15 +13,22 @@ function NavBar() {
     <div>
         <nav id="navbar">
         <Link to="/">Home</Link>
+        
+        <Link to="/createfundraiser">Create New Fundraiser</Link>
+
         {auth.token ? (
-            <Link to="/" onClick={handleLogout}>
-                Log Out
-            </Link>
+            <>
+            <span className="navbar-user">
+                Logged in as: {auth.username || "User"}
+            </span>
+                <Link to="/" onClick={handleLogout}>
+                    Log Out
+                </Link>
+            </>
             ) : (
             <Link to="/login">Login</Link>
         )}
-        <Link to="/createfundraiser">Create New Fundraiser</Link>
-        <Link to="/contact">Contact</Link>
+
         </nav>
         <Outlet />
     </div>

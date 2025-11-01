@@ -37,7 +37,9 @@ function FundraiserPage() {
     return (
         <div>
             <h1 className="underline">{fundraiser.title}</h1>
-            <h3 className="text-center">Created by: {fundraiser.username} on {formatDate(fundraiser.date_created)}</h3>
+            <h3 className="text-center">
+                Created by: <Link to={`/users/${fundraiser.owner}`}>{fundraiser.username}</Link> on {formatDate(fundraiser.date_created)}
+            </h3>
             <h3 className="text-center">{fundraiser.description}</h3>
             <h3>-----</h3>
             <h3>Goal: ${Number(fundraiser.goal)}</h3>
@@ -49,7 +51,7 @@ function FundraiserPage() {
                 {fundraiser.pledges.map((pledgeData, key) => {
                     return (
                         <li key={key}>
-                            ${pledgeData.amount} from {pledgeData.username} - "{pledgeData.comment}"
+                            ${pledgeData.amount} from <Link to={`/users/${pledgeData.supporter}`}>{pledgeData.username}</Link> - "{pledgeData.comment}"
                         </li>
                     );
                 })}

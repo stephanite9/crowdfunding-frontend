@@ -47,6 +47,9 @@
 
 body {
     font-family: "Courier Prime", monospace;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--padding-medium);
 }
 
 h1 {
@@ -56,6 +59,8 @@ h1 {
     font-weight: bold;
     align-items: center;
     justify-content: center;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 h2 {
@@ -65,10 +70,14 @@ h2 {
     font-weight: bold;
     align-items: center;
     justify-content: center;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 h3 {
     font-family: "Courier Prime", monospace;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 .update-fundraiser-button {
@@ -83,4 +92,24 @@ h3 {
 nav a:hover {
     background-color: #58d41e;
 }
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+    body {
+        padding: 0 var(--padding-base);
+    }
+    
+    h1 {
+        font-size: x-large;
+    }
+    
+    h2 {
+        font-size: large;
+    }
+    
+    #navbar {
+        flex-direction: column;
+        gap: var(--padding-base);
+    }
+    }
 

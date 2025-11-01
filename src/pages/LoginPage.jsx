@@ -6,7 +6,9 @@ function LoginPage() {
         <>
             <LoginForm />
             
-            <div>
+
+
+            <div style={{ marginTop: "1rem" }}>
                 <Link to="/createuser">Create New Account</Link>
             </div>
         </>

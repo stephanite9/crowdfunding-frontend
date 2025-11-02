@@ -5,6 +5,8 @@ Stephanie Chan
 ### Concept/Name
 The Show Must Go On, a crowdfunding app to bring back cancelled TV shows and movie franchises from the dead.
 
+In terms of design, I wanted a style reminiscent of a script! I looked up scripts and they typically use Courier Prime font, white paper and underlines and centred text. 
+
 ### Links
 show-goes-on-app on Heroku
 https://show-goes-on.netlify.app/
@@ -27,18 +29,21 @@ Varied audience;
 - Display Fundaiser
   - Show description about fundraiser
   - Show all current pledges
-  - Show current pledge total
+  - Show current pledge total out of goal amount
   - Add new pledge form
   - There are links to the user pages but they only go to a placeholder user page with minimal data. Update user function doesn't work.
-  - 
+  - Button to link to update fundraiser page
 
- 
- 
- A link to the deployed project.
+### Screenshots
+1) A screenshot of the homepage
+2) A screenshot of the fundraiser creation page and form
+3) A screenshot of the fundraiser page with goal reached message
+4) A screenshot of a fundraiser with pledges
+5) A screenshot of the resulting page when an unauthorized user attempts to edit a fundraiser (optional, depending on whether or not this functionality makes sense in your app!)
 
-
- A screenshot of the homepage
- A screenshot of the fundraiser creation page
- A screenshot of the fundraiser creation form
- A screenshot of a fundraiser with pledges
- A screenshot of the resulting page when an unauthorized user attempts to edit a fundraiser (optional, depending on whether or not this functionality makes sense in your app!)
+### Notes - ie. stuff I may add in later
+- I had a functionality for adding a list of the top trending (ie. most pledges) fundraisers
+- Update user details and more detail on the individual user pages
+- Update pledges
+- Text showing if goal has been reached on the Fundraiser Cards on the Home Page
+- Linked image also displays on the fundraiser page, not just the fundraiser card

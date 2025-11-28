@@ -1,0 +1,33 @@
+.fundraiser-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+    word-wrap: break-word;
+}
+
+.description-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    max-width: 100%;
+    text-align: left;
+}
+
+.description-text p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    margin: 0.5rem 0;
+}
+
+h1, h3, p, li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+ul {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}

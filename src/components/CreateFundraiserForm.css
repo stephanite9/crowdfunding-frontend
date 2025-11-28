@@ -1,0 +1,39 @@
+/* Form container */
+form {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--padding-medium);
+    word-wrap: break-word;
+}
+
+/* Tiptap editor styling */
+.tiptap {
+    max-width: 100%;
+    min-height: 200px;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.tiptap p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: 0.5rem 0;
+}
+
+.tiptap:focus {
+    outline: 2px solid var(--primary-color, #007bff);
+    border-color: var(--primary-color, #007bff);
+}
+
+/* Form inputs */
+form input,
+form select,
+form textarea {
+    max-width: 100%;
+    word-wrap: break-word;
+    box-sizing: border-box;
+}

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import postCreateFundraiser from "../api/create-fundraiser.js";
 import { useAuth } from "../hooks/use-auth.js";
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 
 function CreateFundraiserForm() {
     const navigate = useNavigate();
@@ -14,6 +16,17 @@ function CreateFundraiserForm() {
         media: "",
         goal: "",
         imageUrl: ""
+    });
+
+    // Initialize Tiptap editor
+    const editor = useEditor({
+        extensions: [StarterKit],
+        content: '<p>Start writing your fundraiser description...</p>',
+        onUpdate: ({ editor }) => {
+            // Update description whenever editor changes
+            const html = editor.getHTML();
+            setFundraiserform(prev => ({ ...prev, description: html }));
+        },
     });
 
     useEffect(() => {
@@ -64,26 +77,23 @@ function CreateFundraiserForm() {
     };
 
     return (
-    <form>
+    <form onSubmit={handleSubmit}>
         <div>
             <label htmlFor="title">Title:</label>
             <input 
-                type="text"
-                id="title"
-                placeholder="Create fundraiser title"
+                type="text" 
+                id="title" 
+                placeholder="Enter title of fundraiser"
+                value={fundraiserform.title}
                 onChange={handleChange}
                 required
             />
+
         </div>
         <div>
             <label htmlFor="description">Description:</label>
-            <input 
-                type="text" 
-                id="description" 
-                placeholder="Enter description of fundraiser"
-                onChange={handleChange}
-                required
-            />
+            <EditorContent editor={editor} 
+            required/>
         </div>
         <div>
             <label htmlFor="location">Location:</label>
@@ -102,7 +112,8 @@ function CreateFundraiserForm() {
         <div>
             <label htmlFor="media">Media type:</label>
             <select 
-                id="media" 
+                id="media"
+                value={fundraiserform.media}
                 onChange={handleChange}
                 required
             >
@@ -125,7 +136,10 @@ function CreateFundraiserForm() {
                 <label htmlFor="imageUrl">Image URL (optional)</label>
                 <input id="imageUrl" onChange={handleChange} />
         </div>
-        <button type="submit" onClick={handleSubmit}>Submit New Fundraiser</button>
+        <button type="submit" disabled={loading}>
+            {loading ? "Creating..." : "Submit New Fundraiser"}
+        </button>
+        {error && <div className="error" role="alert">{error}</div>}
     </form>
     );
 }

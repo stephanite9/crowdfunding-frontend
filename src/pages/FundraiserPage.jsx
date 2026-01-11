@@ -1,4 +1,5 @@
 import { Link, Outlet, useParams} from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // added
 import CreatePledgeForm from "../components/CreatePledgeForm.jsx";
 import useFundraiser from "../hooks/use-fundraiser";
 import "./FundraiserPage.css";
@@ -6,6 +7,7 @@ import "./FundraiserPage.css";
 function FundraiserPage() {
     // Here we use a hook that comes for free in react router called `useParams` to get the id from the URL so that we can pass it to our useFundraiser hook.
     const { id } = useParams();
+    const navigate = useNavigate(); // added
 
     // useFundraiser returns three pieces of info, so we need to grab them all here
     const { fundraiser, isLoading, error } = useFundraiser(id);
@@ -34,6 +36,23 @@ function FundraiserPage() {
         : 0;
 
     const goalReached = totalPledged >= Number(fundraiser.goal);
+
+    const handleDelete = async () => { // added
+        if (!window.confirm("Delete this fundraiser? This cannot be undone.")) return;
+        try {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/fundraisers/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+                },
+            });
+            if (!res.ok) throw new Error("Failed to delete fundraiser");
+            navigate("/"); // go home after delete
+        } catch (err) {
+            alert(err.message);
+        }
+    };
 
     return (
         <div className="fundraiser-page">
@@ -67,6 +86,12 @@ function FundraiserPage() {
                 fundraiserId={id}
                 onSuccess={() => window.location.reload()} // replace with a refetch if available
             />
+
+            {fundraiser?.is_owner && ( // added
+                <div className="delete-fundraiser-button">
+                    <button onClick={handleDelete}>Delete fundraiser</button>
+                </div>
+            )}
 
             <div className="update-fundraiser-button">
                 <Link to="update">

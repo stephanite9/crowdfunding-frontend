@@ -1,29 +1,25 @@
-async function postCreateFundraiser(payload, token) {
+async function postCreateFundraiser(fundraiserData, token) {
     const url = `${import.meta.env.VITE_API_URL}/fundraisers/`;
-    
+
     const headers = {
         "Content-Type": "application/json",
     };
-    
+
     if (token) {
         headers["Authorization"] = `Token ${token}`;
     }
-    
+
     const response = await fetch(url, {
-        method: "POST", // We need to tell the server that we are sending JSON data so we set the Content-Type header to application/json
+        method: "POST",
         headers,
-        body: JSON.stringify(payload),
+        body: JSON.stringify(fundraiserData), // Make sure this isn't double-encoding
     });
 
     if (!response.ok) {
-        const fallbackError = `Error trying to create fundraiser`;
-
-        const data = await response.json().catch(() => {
-        throw new Error(fallbackError);
-    });
-
-    const errorMessage = data?.detail ?? fallbackError;
-    throw new Error(errorMessage);
+        const fallbackError = `Error creating fundraiser`;
+        const data = await response.json().catch(() => null);
+        const errorMessage = data?.detail ?? fallbackError;
+        throw new Error(errorMessage);
     }
 
     return await response.json();

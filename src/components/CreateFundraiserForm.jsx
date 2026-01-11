@@ -23,7 +23,6 @@ function CreateFundraiserForm() {
         extensions: [StarterKit],
         content: '<p>Start writing your fundraiser description...</p>',
         onUpdate: ({ editor }) => {
-            // Update description whenever editor changes
             const html = editor.getHTML();
             setFundraiserform(prev => ({ ...prev, description: html }));
         },
@@ -63,6 +62,10 @@ function CreateFundraiserForm() {
             is_open: true
         };
 
+        // DEBUG: Check what we're sending
+        console.log("Description being sent:", newfundraiserpayload.description);
+        console.log("First 100 chars:", newfundraiserpayload.description.substring(0, 100));
+
         setLoading(true);
         try {
             const created = await postCreateFundraiser(newfundraiserpayload, auth?.token);
@@ -92,13 +95,35 @@ function CreateFundraiserForm() {
         </div>
         <div>
             <label htmlFor="description">Description:</label>
-            <EditorContent editor={editor} 
-            required/>
+            {editor && (
+                <div className="editor-toolbar">
+                    <button type="button" onClick={() => editor.chain().focus().toggleBold().run()}>
+                        Bold
+                    </button>
+                    <button type="button" onClick={() => editor.chain().focus().toggleItalic().run()}>
+                        Italic
+                    </button>
+                    <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+                        H2
+                    </button>
+                    <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
+                        H3
+                    </button>
+                    <button type="button" onClick={() => editor.chain().focus().toggleBulletList().run()}>
+                        Bullet List
+                    </button>
+                    <button type="button" onClick={() => editor.chain().focus().toggleOrderedList().run()}>
+                        Numbered List
+                    </button>
+                </div>
+            )}
+            <EditorContent editor={editor} />
         </div>
         <div>
             <label htmlFor="location">Location:</label>
             <select 
-                id="location" 
+                id="location"
+                value={fundraiserform.location}
                 onChange={handleChange}
                 required
             >
@@ -128,13 +153,14 @@ function CreateFundraiserForm() {
                 type="number" 
                 id="goal" 
                 placeholder="Enter fundraising goal amount"
+                value={fundraiserform.goal}
                 onChange={handleChange}
                 required
             />
         </div>
         <div>
                 <label htmlFor="imageUrl">Image URL (optional)</label>
-                <input id="imageUrl" onChange={handleChange} />
+                <input id="imageUrl" value={fundraiserform.imageUrl} onChange={handleChange} />
         </div>
         <button type="submit" disabled={loading}>
             {loading ? "Creating..." : "Submit New Fundraiser"}

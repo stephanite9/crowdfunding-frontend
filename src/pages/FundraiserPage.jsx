@@ -1,17 +1,31 @@
 import { Link, Outlet, useParams} from "react-router-dom";
-import { useNavigate } from "react-router-dom"; // added
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/use-auth";
 import CreatePledgeForm from "../components/CreatePledgeForm.jsx";
 import useFundraiser from "../hooks/use-fundraiser";
 import "./FundraiserPage.css";
+import deleteFundraiser from "../api/delete-fundraiser"; // add this import
 
 function FundraiserPage() {
-    // Here we use a hook that comes for free in react router called `useParams` to get the id from the URL so that we can pass it to our useFundraiser hook.
     const { id } = useParams();
-    const navigate = useNavigate(); // added
+    const navigate = useNavigate();
+    const { auth } = useAuth();
 
-    // useFundraiser returns three pieces of info, so we need to grab them all here
     const { fundraiser, isLoading, error } = useFundraiser(id);
     
+    // Check if logged-in user is the owner
+    const ownerUsername =
+    fundraiser?.owner_username ?? fundraiser?.username ?? fundraiser?.owner ?? "";
+const isOwner = !!fundraiser && !!auth?.username && auth.username === ownerUsername;
+
+console.debug("Owner check:", {
+    authUser: auth?.username,
+    ownerField: fundraiser?.owner,
+    usernameField: fundraiser?.username,
+    ownerUsername,
+    isOwner,
+});
+
     if (isLoading) {
         return (<p>loading...</p>)
     }
@@ -28,7 +42,7 @@ function FundraiserPage() {
             day: "numeric",
             month: "long",
             year: "numeric",
-        }); // en-GB gives DD/MM/YYYY
+        });
     };
 
     const totalPledged = Array.isArray(fundraiser.pledges)
@@ -37,20 +51,24 @@ function FundraiserPage() {
 
     const goalReached = totalPledged >= Number(fundraiser.goal);
 
-    const handleDelete = async () => { // added
-        if (!window.confirm("Delete this fundraiser? This cannot be undone.")) return;
+    // Handler for update button
+    const handleUpdateClick = () => {
+        navigate(`/fundraiser/update/${id}`)
+    };
+
+    // Handler for delete button
+    const handleDeleteClick = async () => {
+        if (!window.confirm("Are you sure you want to delete this fundraiser?")) {
+            return;
+        }
+
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/fundraisers/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-                },
-            });
-            if (!res.ok) throw new Error("Failed to delete fundraiser");
-            navigate("/"); // go home after delete
+            await deleteFundraiser(id, auth.token);
+            alert("Fundraiser deleted successfully!");
+            navigate("/");
         } catch (err) {
-            alert(err.message);
+            console.error("Delete failed:", err);
+            alert(`Failed to delete fundraiser: ${err.message}`);
         }
     };
 
@@ -84,21 +102,29 @@ function FundraiserPage() {
 
             <CreatePledgeForm
                 fundraiserId={id}
-                onSuccess={() => window.location.reload()} // replace with a refetch if available
+                onSuccess={() => window.location.reload()}
             />
 
-            {fundraiser?.is_owner && ( // added
-                <div className="delete-fundraiser-button">
-                    <button onClick={handleDelete}>Delete fundraiser</button>
+            {isOwner && (
+                <div className="owner-actions">
+                    <button
+                        type="button"
+                        className="btn-update"
+                        onClick={handleUpdateClick}
+                    >
+                        Update Fundraiser
+                    </button>
+                    <button
+                        type="button"
+                        className="btn-delete"
+                        onClick={handleDeleteClick}
+                    >
+                        Delete Fundraiser
+                    </button>
                 </div>
             )}
 
-            <div className="update-fundraiser-button">
-                <Link to="update">
-                    <button>Update fundraiser</button>
-                </Link>
-                <Outlet />
-            </div>
+            <Outlet />
         </div>
     );
 }

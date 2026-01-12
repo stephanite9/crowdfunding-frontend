@@ -3,7 +3,7 @@ import "./FundraiserCard.css";
 
 function FundraiserCard(props) {
     const { fundraiserData } = props;
-    const fundraiserLink = `fundraisers/${fundraiserData.id}`;
+    const fundraiserLink = `/fundraisers/${fundraiserData.id}`;
 
 
     return (

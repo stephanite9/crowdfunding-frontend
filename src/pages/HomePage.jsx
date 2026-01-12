@@ -46,7 +46,7 @@ function HomePage() {
                 <h1 className="hero__title">The Show Must Go On</h1>
                 <p className="hero__subtitle">
                     Back new theatre, film, and media projects. Discover passionate creators,
-                    pledge support, and help bring stories to life.
+                    pledge support, and help bring your favourite stories back to life.
                 </p>
                 <div className="hero__actions">
                     <Link to="/createfundraiser" className="btn primary">Start a fundraiser</Link>
@@ -58,7 +58,7 @@ function HomePage() {
                 <h2>How it works</h2>
                 <p>
                     Create a fundraiser, share your vision, and invite supporters to pledge.
-                    Track progress toward your goal and keep your backers updated as you go.
+                    Track progress toward your goal, interact with your supporters and keep your backers updated as you go.
                 </p>
             </section>
 

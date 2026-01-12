@@ -23,7 +23,7 @@ function NavBar() {
         {auth.token ? (
             <>
             <span className="navbar-user">
-                Logged in as: {auth.username || "User"}
+                Hey there, {auth.username || "User"}
             </span>
                 <Link to="/" onClick={handleLogout}>
                     Log Out

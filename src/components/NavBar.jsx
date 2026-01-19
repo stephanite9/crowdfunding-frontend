@@ -5,6 +5,7 @@ function NavBar() {
     const { auth, setAuth } = useAuth();
     const location = useLocation();
     const onHome = location.pathname === "/";
+    const onBrowse = location.pathname === "/fundraisers";
 
     const handleLogout = () => {
         window.localStorage.removeItem("token");
@@ -18,6 +19,11 @@ function NavBar() {
         
         {!onHome && (
             <Link to="/createfundraiser">Create New Fundraiser</Link>
+        )}
+        {!onBrowse && (
+            <Link to="/fundraisers" className="nav-link">
+                Browse Fundraisers
+            </Link>
         )}
 
         {auth.token ? (

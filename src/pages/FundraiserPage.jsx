@@ -53,7 +53,7 @@ console.debug("Owner check:", {
 
     // Handler for update button
     const handleUpdateClick = () => {
-        navigate(`/fundraiser/update/${id}`)
+        navigate(`/fundraisers/${id}/update`);
     };
 
     // Handler for delete button

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import putUpdateFundraiser from "../api/update-fundraiser.js";
 import { useAuth } from "../hooks/use-auth.js";
+import "./UpdateFundraiserForm.css";
 
 function UpdateFundraiserForm() {
     const navigate = useNavigate();
@@ -182,7 +183,7 @@ function UpdateFundraiserForm() {
 
             {error && <div className="error" role="alert">{error}</div>}
 
-            <button type="submit" disabled={loading}>
+            <button type="submit" className="btn primary" disabled={loading}>
                 {loading ? "Updating..." : "Update Fundraiser"}
             </button>
         </form>

@@ -109,14 +109,14 @@ console.debug("Owner check:", {
                 <div className="owner-actions">
                     <button
                         type="button"
-                        className="btn-update"
+                        className="btn primary"
                         onClick={handleUpdateClick}
                     >
                         Update Fundraiser
                     </button>
                     <button
                         type="button"
-                        className="btn-delete"
+                        className="btn ghost"
                         onClick={handleDeleteClick}
                     >
                         Delete Fundraiser

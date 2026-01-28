@@ -162,7 +162,7 @@ function CreateFundraiserForm() {
                 <label htmlFor="imageUrl">Image URL (optional)</label>
                 <input id="imageUrl" value={fundraiserform.imageUrl} onChange={handleChange} />
         </div>
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="btn primary" disabled={loading}>
             {loading ? "Creating..." : "Submit New Fundraiser"}
         </button>
         {error && <div className="error" role="alert">{error}</div>}

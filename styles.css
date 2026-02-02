@@ -21,18 +21,42 @@
 #navbar {
     display: flex;
     font-family: "Courier Prime", monospace;
-    font-size: large;
+    font-size: 1rem;
     font-weight: bold;
     justify-content: space-around;
     align-items: center;
-    padding: var(--padding-medium);
-    background-color: var(--brand);
+    padding: 1rem var(--padding-medium);
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+#navbar a {
+    color: #000;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    letter-spacing: 0.05em;
+}
+
+#navbar a:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
 }
 
 .navbar-user {
-    color: var(--base-dark);
+    color: #000;
     font-size: 0.9rem;
-    margin-right: 1rem;
+    padding: 0.75rem 1.25rem;
+    letter-spacing: 0.05em;
+    border: 2px dashed #000;
+    background-color: #ffff99;
+    transform: rotate(-1deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .underline {
@@ -107,9 +131,7 @@ h3 {
 }
 
 /* Hover state */
-nav a:hover {
-    background-color: #58d41e;
-}
+/* Handled in #navbar a:hover above */
 
 /* Media queries for smaller screens */
 @media (max-width: 768px) {
